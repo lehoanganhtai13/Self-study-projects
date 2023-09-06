@@ -1,0 +1,29 @@
+-Setup dependencies
+conda create -n detectron2_env python=3.8
+conda activate detectron2_env 
+conda install pytorch==1.8.1 torchvision==0.9.1 torchaudio==0.8.1 cudatoolkit=10.2 -c pytorch
+conda install -c anaconda git
+python -m pip install git+https://github.com/facebookresearch/detectron2.git
+pip install opencv-python (không dùng nữa) / conda install -c conda-forge opencv (thay thế bởi cái này)
+pip install numba
+pip install GPUtil
+pip install roboflow
+pip install sympy
+
+link for how to obtain detected object info: https://github.com/facebookresearch/detectron2/issues/1519
+
+-Setup yolov5 environment
+git clone https://github.com/ultralytics/yolov5  # clone
+cd yolov5
+pip install -r requirements.txt  # install
+pip install -r requirements.txt coremltools onnx==1.12 onnx-simplifier onnxruntime-gpu openvino-dev tensorflow
+C:\Users\Admins\Anaconda3\envs\detectron2_env\python.exe -m pip install -U pip
+pip3 install onnxsim
+
+-fix lỗi không đọc được net yolo onnx
+%pip install torch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 torchtext==0.12.0
+%pip install onnx==1.12.0
+%pip show torch
+%pip show torchvision
+(cài đặt môi trường chạy trên colab)
+export onnx: python export.py --weights 'D://Study//402//do_an//screw training//code//model//yolov5.pt' --include onnx --opset 11 --simplify

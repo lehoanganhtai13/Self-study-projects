@@ -1,0 +1,83 @@
+-Cài đặt Cmake 5.24.2.
+-Tải OpenCV 4.5.1-vc14vc15 (giải nén ở ổ C với đường dẫn "C:\OpenCV\opencv-4.5.1" sẽ có folder source và build- file prebuilt có sẵn) + opencv_contrib-4.x + Cmake.
+-Đưa folder opencv_contrib-4.x vào bên trong folder chứa OpenCV vừa giải nén "C:\OpenCV\opencv-4.5.1\opencv_contrib-4.x".
+-Thêm đường dẫn cần thiết cho Environment Variables:
++Nhấp chuột phải vào "This PC" chọn Properties, vào Advanced system settings - Environment Variables.
++Trong phần System variables, chọn Path và nhấn Edit.
++Chọn New và paste các đường dẫn vào:
+	-C:\Qt\5.15.2\msvc2015_64\bin
+	-C:\Qt\5.15.2\msvc2015_64\lib
+	-C:\Qt\5.15.2\msvc2015_64\lib\cmake
+	-C:\OpenCV\opencv-4.5.1\opencv_contrib-4.x\modules
+-Vào folder OpenCV "C:\OpenCV\opencv-4.5.1" và tạo folder mới "build_vc14" (nơi tạo ra thư viện OpenCV để dùng cho Qt).
+-Mở Cmake lên.
+-Copy đường dẫn "C:\OpenCV\opencv-4.5.1\sources" vào paste vào phần "Where is the source code".
+-Copy đường dẫn "C:\OpenCV\opencv-4.5.1\build_vc14" vào paste vào phần "Where to build the binaries".
+-Chọn Configure và trong phần Specify the generator for this project chọn Visual Studio 14 2015
+-Trong phần Optional platform for generator chọn x64, để mặc định use default native compilers.
+-Sau đó xuất hiện danh sách, vào phần Search tìm và tick vào:
+	-WITH_QT
+	-WITH_CUDA
+	-OPENCV_DNN_CUDA
+	-ENABLE_FAST_MATH
+-Vào search nhập python3 và kiểm tra PYTHON3_INLCUDE_DIR, PYTHON3_LIBRARY, PYTHON3_LIBRARY_DEBUG đã có đường dẫn chưa.
+-Nếu chưa thì trên thanh công cụ của Cmake có phần File, nhấp vào delete cache. Cài đặt numpy ở version cao nhất "pip install numpy --upgrade" và thực hiện configure cmake lại từ đầu. 
+-Tiếp tục tìm OPENCV_GENERATE_SETUPVARS và untick.
+-Tiếp tục tìm OPENCV_EXTRA_MODULES_PATH và đưa đường dẫn "C:/OpenCV/opencv-4.5.1/opencv_contrib-4.x/modules" vào phần value.
+-Tiếp tục tìm CMAKE_BUILD_TYPE và nhập vào "release" và nhấn Configure.
+-Chạy xong 1 hồi thì vào search nhập Qt.
+-Nhập vào "5" cho DESIRED_QT_VERSION.
+-Xóa toàn bộ giá trị của QT3_QGLOBAL_H_FILE, QT4_QGLOBAL_H_FILE, QT_INCLUDE_DIR, QT_QASSISTANTCLIENT_LIBRARY, QT_QTMAIN_LIBRARY, QT_QT_LIBRARY.
+-Nhập giá trị cho từng mục tương ướng:
+	-QT_QMAKE_EXECUTABLE_FINDQT: C:/Qt/5.15.2/msvc2015_64/bin/qmake.exe
+	-QT_UIC_EXECUTABLE: C:/Qt/5.15.2/msvc2015_64/bin/uic.exe
+	-Qt5Concurrent_DIR: C:/Qt/5.15.2/msvc2015_64/lib/cmake/Qt5Concurrent
+	-Qt5Core_DIR: C:/Qt/5.15.2/msvc2015_64/lib/cmake/Qt5Core
+	-Qt5Gui_DIR: C:/Qt/5.15.2/msvc2015_64/lib/cmake/Qt5Gui
+	-Qt5OpenGL_DIR: C:/Qt/5.15.2/msvc2015_64/lib/cmake/Qt5OpenGL
+	-Qt5Test_DIR: C:/Qt/5.15.2/msvc2015_64/lib/cmake/Qt5Test
+	-Qt5Widgets_DIR: C:/Qt/5.15.2/msvc2015_64/lib/cmake/Qt5Widgets
+	-Qt5_DIR: C:/Qt/5.15.2/msvc2015_64/lib/cmake/Qt5
+-Tiếp tục tìm CUDA_ARCH_BIN và điền vào giá trị computing tương ứng của card đồ họa trong máy (lên google search CUDA wiki và xem) với GTX 1650 là 7.5.
+-Tiếp tục tìm CUDA_FAST_MATH và tick vào.
+-Tiếp tục tìm BUILD_opencv_cvv, BUILD_opencv_stereo, BUILD_opencv_tracking, BUILD_opencv_rgbd, BUILD_opencv_aruco và untick. (Đối với OpenCV 4.7.0 có thể bỏ qua bước này chỉ untick cvv nếu muốn chắc chắn)
+-Nhấn Configure, chờ chạy xong nhấn Generate.
+-Thêm đường dẫn "C:\OpenCV\opencv-4.5.1\build_vc14\install\bin" vào Path.
+-Trong Cmake nhấn Open Project hoặc có thể vào folder "C:\OpenCV\opencv-4.5.1\build_vc14" mở OpenCV.sln.
+-Trong Visual Studio 2015, chọn release cho phần Configuration.
+-Ở phần Solution Explorer của Visual Studio 2015, mở rộng phần CmakeTargets, nhấn chuột phải vào ALL_BUILD và chọn build.
+-Chạy build xong thì tiếp tục build cho INSTALL.
+-Trong Qt, ở file .pro, thêm đường dẫn "C:\OpenCV\opencv-4.5.1\build_vc14\install\include" cho INCLUDEPATH.
+-Ở phần LIBS thêm đường dẫn như sau -LC:\OpenCV\opencv-4.5.1\build_vc14\install\x64\vc14\lib \ -l<tên module 1> \ -l<tên module cuối cùng>.
+-Trong folder chứa file exe của Qt thêm các thư viện dll tương ứng vào.
+-Thêm trong path của environment variables theo địa chỉ "C:\OpenCV\opencv-4.5.1\build_vc14\install\x64\vc14\bin".
+-Thêm biến OPENCV_DIR theo địa chỉ "C:\OpenCV\opencv-4.5.1\build_vc14\install".
+
+-Tải Intel.RealSense.SDK-WIN10-2.51.1.4348 về và cài đặt mặc định.
+-Thêm đường dẫn cho Environment Variables:
+	-C:\Program Files (x86)\Intel RealSense SDK 2.0\include
+	-C:\Program Files (x86)\Intel RealSense SDK 2.0\lib\x64
+-Trong Qt, thêm đường dẫn "C:\Program Files (x86)\Intel RealSense SDK 2.0\include" cho INCLUDEPATH đặt trong ' '.
+-Thêm đường dẫn "C:\Program Files (x86)\Intel RealSense SDK 2.0\lib\x64\realsense2.lib" cho LIBS đặt trong ' '.
+-Vào folder "C:\Program Files (x86)\Intel RealSense SDK 2.0\bin\x64" copy file realsense2.dll vào thư mục chứ file exe.
+
+-Vào đường link tải file zip về: https://github.com/glfw/glfw.
+-Giải nén rồi move tới ổ "C:\GLFW".
+-Mở CMake, dẫn được source và build cho folder GLFW "C:\GLFW\source" và C:\GLFW\build" và configure theo MSVC 2015.
+-Search BUILD_SHARED_LIBS rồi tick vào.
+-Configure lần nữa rồi generate.
+-Open Project lên rồi build cho ALL BUILD và INSTALL ở dạng debug và release.
+-Trong phần output sẽ có đường dẫn nơi chứa của file bin, libs và include.
+	-C:/Program Files/GLFW/lib/glfw3dll.lib
+	-C:/Program Files/GLFW/bin/glfw3.dll
+	-C:/Program Files/GLFW/include
+-Thêm đường dẫn của folder bin vào Environment Variable.
+-Vào Qt ở file .pro thêm INCLUDEPATH theo "C:\Program Files\GLFW\include" và LIBS theo "C:\Program Files\GLFW\lib\glfw3dll.lib"
+-Include thư viện theo sau "#include <GLFW/glfw3.h>"
+-Copy file glfw3.dll vào nơi chứa file executable.
+
+-Vào đường link "https://drive.google.com/file/d/1imGXEmjGEQ0fRuj_zTOdYXNNVHYYRAdh/view" và tải về file "glut-3.7.6-bin-32and64.zip".
+-Giải nén rồi copy file glut64.lib và glut32.lib vào folder "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\lib".
+-Copy file glut.h vào folder "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\GL".
+-Include thư viện theo sau "#include <glut.h>"
+-Copy file glut32.dll và glut64.dll vào nơi chứa file executable.

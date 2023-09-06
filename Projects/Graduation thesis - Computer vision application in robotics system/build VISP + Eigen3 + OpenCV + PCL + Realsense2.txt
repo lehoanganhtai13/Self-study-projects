@@ -1,0 +1,56 @@
+-Link tham khảo cài đặt VISP theo vc14 ở link "https://visp-doc.inria.fr/doxygen/visp-3.4.0/tutorial-install-win10-msvc14.html".
+-Cài Cmake 3.24.2.
+-Tạo folder theo địa chỉ "C:\visp-ws".
+-Thêm biến VISP_WS theo địa chỉa "C:\visp-ws" trong Environment variable.
+
+1. Cài đặt Eigen3
+-Lên web https://gitlab.com/libeigen/eigen/-/releases tải file zip phiên bản 3.4.0 trong folder "C:\visp-ws" và giải nén.
+-Tạo folder source và build_vc14 trong folder "C:\visp-ws\eigen-3.4.0" và copy toàn bộ dữ liệu source vào folder source.
+-Mở Cmake và configure theo Visual studio 14 2015 và nhấn generate.
+-Mở CMD với administrator.
+-Chạy lệnh C:\> cmake --build . --config Release --target install cho Release.
+-Chạy lệnh C:\> cmake --build . --config Debug --target install cho Debug.
+-Thêm biến Eigen3_DIR theo địa chỉ "C:\Program Files\Eigen3\share\eigen3\cmake".
+
+2. OpenCV
+-Cài dặt phiên bản 4.5.1 theo hướng dẫn cài với Qt.
+-Kiểm tra biến OPENCV_DIR đã được thiết lập với folder chứa file OpenCVConfig.cmake của install chưa.
+
+3. Librealsense 
+-Cài đặt theo như hướng dẫn cài đặt với Qt.
+-Kiểm đã thêm địa chỉ "C:\Program Files (x86)\Intel RealSense SDK 2.0\bin\x64" trong Path chưa - để chỉ nơi chứa file realsense2.dll.
+
+4. OpenNI2
+-Vào web https://structure.io/openni để tải bản "OpenNI 2.2.0.33 Beta (x64)" cho Windows vào folder "C:\visp-ws".
+-Giải nén file và cài đặt file OpenNI-Windows-x64-2.2.msi.
+-Thêm địa chỉ "C:\Program Files\OpenNI2\Redist" vào biến Environment variable.
+
+5. Boost
+-Vào web https://boostorg.jfrog.io/artifactory/main/release/1.64.0/binaries/ tải file cài "boost_1_64_0-msvc-14.1-64.exe" (vc14 bản 14.1) và cài đặt.
+-Sau khi cài hết VISP, thêm đường dẫn LIBS trong Qt theo như sau "LIBS += -LC:\local\boost_1_64_0\lib64-msvc-14.1\ -llibboost_date_time-vc141-mt-gd-1_64".
+
+6. PCL
+-Vào web https://github.com/PointCloudLibrary/pcl/releases/tag/pcl-1.8.1 tải file "PCL-1.8.1-AllInOne-msvc2015-win64.exe" vào folder "C:\visp-ws\PCL-1.8.1"
+-Cài đặt file exe với settings "Add PLC to the system PATH for all users", không cài kèm 3rd-parties của Boost và OpenNI2.
+-Thêm địa chỉ "C:\Program Files\PCL 1.8.1\bin" vào biến Environment variable.
+-Nếu muốn cài dưới dạng cmake có thể tham khảo link "https://gist.github.com/UnaNancyOwen/59319050d53c137ca8f3".
+
+7. Doxygen (Để thiết lập documentation cho VISP - skip nếu không cần)
+-Vào web https://www.doxygen.nl/download.html tải file "binary distribution for Windows".
+-Cài đặt theo file "doxygen-1.9.6-setup.exe"
+
+8.VISP
+-Tải file zip "git clone https://github.com/lagadic/visp.git" vào folder "C:\visp-ws".
+-Vào folder "C:\visp-ws\visp-source\modules\vision\src\calibration\vpHandEyeCalibration.cpp" sửa giá trị của NB_ITER_MAX thành 1 số cao lấy vd là "100".
+-Mở Cmake và configure theo Visual Studio 2015.
+-Tìm EIGEN_INCLUDE_DIR sửa thành "C:/Program Files/Eigen3/include/eigen3".
+-Tìm USE_CXX_STANDARD và sửa thành "11".
+-Nhấn Configure, Generate rồi Open Project.
+-Ở khung Solution Explorer, chọn Solution 'VISP'.
+-Ở khung menu chọn Build-Build Solution.
+-Sau đó nhấn chuột phải vào INSTALL ở khung Solution Explorer chọn build.
+-Thực hiện ở Debug và Release.
+-Thêm biến VISP_DIR theo đường dẫn "%VISP_WS%\visp-build-vc14\install" vào environment variables.
+-Thêm địa chỉ "%VISP_WS%\visp-build-vc14\install\x64\vc14\bin" vào Path.
+
+Lưu ý: khi 1 trong các thư viện ở trên bị thay đổi cần build lại VISP.
