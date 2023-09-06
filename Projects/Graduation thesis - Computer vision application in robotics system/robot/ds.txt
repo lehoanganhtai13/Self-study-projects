@@ -1,0 +1,10 @@
+đã :
+bổ sung ping IP
+bổ sung thông báo
+fix lỗi check date time 
+bổ sung uninstall
+bổ sung about
+fix lỗi sau khi unlock hiện ngày khi chưa nhập vào
+loại bớt unlock key
+chưa:
+bổ sung PC program panel

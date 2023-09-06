@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>usb21.png</file>
+        <file>usb31.png</file>
+    </qresource>
+</RCC>

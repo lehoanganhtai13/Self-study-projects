@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>key.ico</file>
+        <file>about.ico</file>
+        <file>refresh.ico</file>
+        <file>paste.ico</file>
+        <file>command prompt.jpg</file>
+        <file>exit.ico</file>
+        <file>uninstall.ico</file>
+        <file>recycling bin.ico</file>
+        <file>logo.ico</file>
+        <file>options.ico</file>
+        <file>open.png</file>
+    </qresource>
+</RCC>
