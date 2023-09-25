@@ -1,1 +1,1 @@
-This overview file of 18 algorithms (Supervised Learning, Unsupervised Learning, Deep-Reinforcement Learning) is written in Vietnamese version with some terminology in English.
+This overview file of 18 algorithms (Supervised Learning, Unsupervised Learning, Deep-Reinforcement Learning) is written in Vietnamese version with some terminologies in English.
